@@ -3,7 +3,7 @@ Overview
 
 Modified luadec for decompiling genshin lua files.
 
-Genshin compiled lua files has modified header and op order.
+Genshin compiled lua files has modified header and opcode order.
 
 Compiling
 ---------
