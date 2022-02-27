@@ -1,12 +1,9 @@
 Overview
 ========
 
-LuaDec is a Lua decompiler for lua 5.1 , and experimental for lua 5.2 and 5.3.
+Modified luadec for decompiling genshin lua files.
 
-It is based on Hisham Muhammad's luadec which targeted lua 5.0.x and LuaDec51 by Zsolt Sz. Sztupak.
-
-LuaDec is free software and uses the same license as the original LuaDec.
-
+Genshin compiled lua files has modified header and opcode order.
 
 Compiling
 ---------
