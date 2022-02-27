@@ -179,7 +179,7 @@ config.LUA_TSTRING  = 4
 config.LUA_TSHRSTR  = config.LUA_TSTRING | (0 << 4)
 config.LUA_TLNGSTR  = config.LUA_TSTRING | (1 << 4)
 config.VERSION      = 83 -- 0x53
-config.FORMAT       = 0  -- LUAC_FORMAT (new in 5.1)
+config.FORMAT       = 1  -- LUAC_FORMAT (new in 5.1)
 config.FPF          = 50 -- LFIELDS_PER_FLUSH
 config.SIZE_OP      = 6  -- instruction field bits
 config.SIZE_A       = 8
@@ -583,31 +583,28 @@ function DecodeInit()
   ---------------------------------------------------------------
   -- opcode name table
   ---------------------------------------------------------------
-  local op = [[
-    MOVE LOADK LOADKX LOADBOOL LOADNIL 
-    GETUPVAL GETTABUP GETTABLE SETTABUP SETUPVAL 
-    SETTABLE NEWTABLE SELF ADD SUB 
+  local op = [[ ADD SUB 
     MUL MOD POW DIV IDIV 
     BAND BOR BXOR SHL SHR 
     UNM BNOT NOT LEN CONCAT 
-    JMP EQ LT LE TEST 
-    TESTSET CALL TAILCALL RETURN FORLOOP 
-    FORPREP TFORCALL TFORLOOP SETLIST CLOSURE 
-    VARARG EXTRAARG 
-  ]]
+    JMP EQ LT LE 
+    MOVE LOADK EXTRAARG LOADBOOL RETURN 
+    GETUPVAL SETLIST LOADKX SELF FORLOOP 
+    SETTABLE TAILCALL TFORLOOP SETTABUP 
+    TESTSET GETTABUP VARARG LOADNIL 
+    TFORCALL SETUPVAL GETTABLE FORPREP 
+    NEWTABLE CALL CLOSURE TEST ]]
 
   iABC=0; iABx=1; iAsBx=2; iAx=3
   config.opmode = {
-    [0]=iABC,iABx,iABx,iABC,iABC,
-    iABC,iABC,iABC,iABC,iABC,
-    iABC,iABC,iABC,iABC,iABC,
-    iABC,iABC,iABC,iABC,iABC,
-    iABC,iABC,iABC,iABC,iABC,
-    iABC,iABC,iABC,iABC,iABC,
-    iAsBx,iABC,iABC,iABC,iABC,
-    iABC,iABC,iABC,iABC,iAsBx,
-    iAsBx,iABC,iAsBx,iABC,iABx,
-    iABC,iAx
+    [0]=iABC, iABC, iABC, iABC, iABC,
+    iABC, iABC, iABC, iABC, iABC, iABC, iABC,
+    iABC, iABC, iABC, iABC, iABC, iAsBx, iABC,
+    iABC, iABC, iABC, iABx, iAx, iABC, iABC,
+    iABC, iABC, iABx, iABC, iAsBx, iABC, iABC,
+    iAsBx, iABC, iABC, iABC, iABC, iABC, iABC,
+    iABC, iABC, iAsBx, iABC, iABC, iABx, iABC
+    
   }
 
   ---------------------------------------------------------------
@@ -1351,7 +1348,7 @@ function ChunkSpy(chunk_name, chunk)
   end
   -- byte sizes
   TestSize("size_int", "int", "bytes")
-  TestSize("size_size_t", "size_t", "bytes")
+  -- TestSize("size_size_t", "size_t", "bytes")
   TestSize("size_Instruction", "Instruction", "bytes")
   TestSize("size_lua_Integer", "Integer", "bytes")
   TestSize("size_lua_Number", "Number", "bytes")
