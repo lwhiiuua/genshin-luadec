@@ -5,6 +5,9 @@ Modified luadec for decompiling genshin lua files.
 
 Genshin compiled lua files has modified header and opcode order.
 
+If you need decompiled lua files, check this repo:
+https://github.com/TheLostTree/YSLua
+
 Compiling
 ---------
 ```
